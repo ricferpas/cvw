@@ -221,8 +221,8 @@ if [ $packages_only != true ]; then
     fi
 
     # Create installation directory
-    mkdir -p "$RISCV"/logs
-    mkdir -p "$RISCV"/versions
+    mkdir -v -p "$RISCV"/logs
+    mkdir -v -p "$RISCV"/versions
 
     # Print more system information
     echo "Installation path: $RISCV"
