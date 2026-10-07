@@ -168,7 +168,7 @@ else
 fi
 
 # wget retry on host error flag not available with older wget on RHEL 8
-if (( RHEL_VERSION != 8 )); then
+if [ "$RHEL_VERSION" != "8" -a "$ID" != "fedora" ] ; then
     retry_on_host_error="--retry-on-host-error"
 fi
 
