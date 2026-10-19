@@ -18,14 +18,16 @@ ENDC='\033[0m' # Reset to default color
 echo "Executing Wally setup.sh"
 
 # Path to RISC-V Tools
-if [ -d ~/riscv ]; then
-    export RISCV=~/riscv
-elif [ -d /opt/riscv ]; then
-    export RISCV=/opt/riscv
-else
-    # set the $RISCV directory here and remove the subsequent two lines
-    # export RISCV=
-    echo -e "${FAIL_COLOR}\$RISCV directory not found. Checked /opt/riscv and ~/riscv. Edit setup.sh to point to your custom \$RISCV directory.${ENDC}"
+candidates=(~/riscv-wally ~/riscv /opt/riscv)
+for dir in "${candidates[@]}" ; do
+    if [ -d "$dir" ] ; then
+        export RISCV="$dir"
+        break
+    fi
+done
+
+if [ -z "$RISCV" ]; then
+    echo -e "${FAIL_COLOR}\$RISCV directory not found. Checked ${candidates[@]}. Edit setup.sh to point to your custom \$RISCV directory.${ENDC}"
     return 1
 fi
 echo \$RISCV set to "${RISCV}"
